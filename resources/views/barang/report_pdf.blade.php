@@ -3,17 +3,44 @@
 <head>
     <title>Laporan Barang</title>
     <style>
-        table { width: 100%; border-collapse: collapse; }
-        th, td { border: 1px solid black; padding: 8px; text-align: left; }
-        th { bg-color: #f2f2f2; }
-        h2 { text-align: center; }
+        /* Table full lebar & border menyatu */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        /* Border dan padding isi tabel */
+        th, td {
+            border: 1px solid black;
+            padding: 6px;
+        }
+
+        /* Header tabel: center + background abu */
+        th {
+            text-align: center;
+            background-color: #f2f2f2;
+        }
+
+        /* Judul di tengah */
+        h2 {
+            text-align: center;
+        }
+
+        /* Utility class untuk center text */
+        .center {
+            text-align: center;
+        }
     </style>
 </head>
 <body>
-    <h2>LAPORAN STOK BARANG - BEPANN</h2>
+
+    <!-- Judul laporan -->
+    <h2>LAPORAN PDF - BEVAND</h2>
+
     <table>
         <thead>
             <tr>
+                <!-- Header kolom -->
                 <th>No</th>
                 <th>Kode</th>
                 <th>Nama Barang</th>
@@ -21,17 +48,27 @@
                 <th>Harga</th>
             </tr>
         </thead>
+
         <tbody>
+            <!-- Loop data dari Laravel -->
             @foreach($barangs as $b)
             <tr>
-                <td>{{ $loop->iteration }}</td>
+                <!-- Nomor urut otomatis -->
+                <td class="center">{{ $loop->iteration }}</td>
+
+                <!-- Data barang -->
                 <td>{{ $b->kode_barang }}</td>
                 <td>{{ $b->nama_barang }}</td>
-                <td>{{ $b->stok }}</td>
+
+                <!-- Stok di tengah -->
+                <td class="center">{{ $b->stok }}</td>
+
+                <!-- Format harga rupiah -->
                 <td>Rp {{ number_format($b->harga, 0, ',', '.') }}</td>
             </tr>
             @endforeach
         </tbody>
     </table>
+
 </body>
 </html>

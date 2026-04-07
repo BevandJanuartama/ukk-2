@@ -16,14 +16,18 @@
         </div>
 
         <form action="{{ route('barang.update', $barang->id) }}" method="POST" class="space-y-5">
-            @csrf @method('PUT') <div>
+            
+            @csrf <!-- keamanan -->
+            @method('PUT') <!-- method update -->
+
+            <div>
                 <label class="block text-sm font-semibold text-gray-700 mb-1">Kode Barang</label>
                 <input type="text" 
                        name="kode_barang" 
                        value="{{ old('kode_barang', $barang->kode_barang) }}" 
                        class="w-full p-2.5 border border-gray-200 rounded-lg bg-gray-100 text-gray-500 cursor-not-allowed outline-none" 
                        readonly>
-                <p class="text-[10px] text-gray-400 mt-1">* Kode barang unik tidak dapat diubah</p>
+                <p class="text-[10px] text-gray-400 mt-1">* Kode barang unik tidak dapat diubah</p> <!-- readonly info -->
             </div>
 
             <div>
@@ -34,14 +38,15 @@
                        placeholder="Masukkan nama barang..."
                        class="w-full p-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none transition @error('nama_barang') border-red-500 @enderror"
                        required>
+                
                 @error('nama_barang') 
                     <p class="text-red-500 text-xs mt-1 italic">{{ $message }}</p> 
-                @enderror
+                @enderror <!-- validasi -->
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-1">Stok Saat Ini</label>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">Stok</label>
                     <input type="number" 
                            name="stok" 
                            value="{{ old('stok', $barang->stok) }}" 
@@ -52,25 +57,27 @@
                 <div>
                     <label class="block text-sm font-semibold text-gray-700 mb-1">Harga Satuan (Rp)</label>
                     <input type="number" 
-                           name="harga" 
-                           value="{{ old('harga', $barang->harga) }}" 
-                           placeholder="10000"
-                           class="w-full p-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none transition"
-                           required>
+                        name="harga" 
+                        value="{{ old('harga', (int) $barang->harga) }}" 
+                        class="w-full p-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none transition"
+                        required>
                 </div>
             </div>
 
             <div class="pt-6 flex flex-col sm:flex-row gap-3">
+                
                 <button type="submit" 
                         class="flex-1 bg-indigo-600 text-white px-6 py-3 rounded-lg font-bold uppercase tracking-wider hover:bg-indigo-700 shadow-md hover:shadow-lg transition transform active:scale-95">
                     Update Data
-                </button>
+                </button> <!-- submit -->
+
                 <a href="{{ route('barang.index') }}" 
                    class="flex-1 bg-gray-200 text-gray-700 px-6 py-3 rounded-lg font-bold uppercase tracking-wider text-center hover:bg-gray-300 transition">
                     Batal
-                </a>
+                </a> <!-- kembali -->
             </div>
         </form>
+
         <p class="mt-8 text-center text-xs text-gray-400">
             &copy; 2026 UKK RPL - SMK Telkom Banjarbaru
         </p>
